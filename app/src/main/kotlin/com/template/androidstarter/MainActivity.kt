@@ -4,8 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.template.androidstarter.core.ui.theme.AppTheme
 import com.template.androidstarter.navigation.AppNavDisplay
+import com.template.androidstarter.presentation.ui.theme.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
