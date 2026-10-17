@@ -8,29 +8,37 @@ DataStore, Retrofit, and Timber, organized with Clean Architecture and MVVM.
 If you are using this template for the first time, **follow the instructions in [`SETUP.md`](SETUP.md) before starting development**.
 
 The setup guide covers renaming the package and project with one Gradle task, removing the optional
-modules you do not need, replacing the example code, and the AI assistant files (`AGENTS.md`,
+parts you do not need, replacing the placeholders, and the AI assistant files (`AGENTS.md`,
 `DEVLOG.md`, `ROADMAP.md`).
 
 > **Do not skip the setup steps.**
 
-## Modules
+## Architecture
+
+Clean Architecture with MVVM. Each layer is a Gradle module, so the folder tree shows the layers:
 
 ```text
-app/                 App, MainActivity, navigation graph
-feature/home/        example screen (copy it for new features)
-core/common/         Resource, DispatcherProvider
-core/model/          domain models
-core/domain/         repository interfaces, use cases
-core/data/           repository implementations
-core/ui/             theme, shared composables, UiText
-core/network/        Retrofit + OkHttp            (optional)
-core/database/       Room                         (optional)
-core/datastore/      DataStore Preferences        (optional)
-core/testing/        unit test helpers
-build-logic/         convention plugins
+app/                       application shell: App, MainActivity, navigation graph
+core/
+  common/                  Resource, DispatcherProvider, utilities
+  testing/                 unit test helpers
+domain/                    models, repository interfaces, use cases (pure Kotlin)
+data/                      repository implementations
+  local/                   Room database, DataStore           (optional)
+  remote/                  Retrofit APIs and DTOs             (optional)
+presentation/
+  ui/                      theme, shared composables, UiText
+  features/<name>/         one module per screen or flow
+build-logic/               convention plugins
 ```
 
-See the Architecture section of [`AGENTS.md`](AGENTS.md) for the rules between modules.
+```text
+presentation/features  ──▶  domain  ◀──  data
+```
+
+Features call use cases in `domain`; `data` implements the domain's repository interfaces. See the
+Architecture section of [`AGENTS.md`](AGENTS.md) for the full folder tree, the rules between the
+layers, and how to add a feature module.
 
 ## Stack
 

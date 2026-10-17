@@ -5,11 +5,11 @@ import starter.libs
 import starter.library
 
 /**
- * Configures a `:feature:*` module: an Android library with Compose, Hilt, and serializable
- * Navigation 3 keys, depending on the core modules every screen needs.
+ * Configures a `:presentation:features:*` module: an Android library with Compose, Hilt, and
+ * serializable Navigation 3 keys, depending on the modules every screen needs.
  *
- * Features depend on `:core:domain` and never on `:core:data`, so screens can only reach data
- * through use cases.
+ * Features depend on `:domain` and never on `:data`, so screens can only reach data through use
+ * cases.
  */
 class AndroidFeatureConventionPlugin : Plugin<Project> {
 
@@ -22,9 +22,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
 
         dependencies {
             add("implementation", project(":core:common"))
-            add("implementation", project(":core:model"))
-            add("implementation", project(":core:domain"))
-            add("implementation", project(":core:ui"))
+            add("implementation", project(":domain"))
+            add("implementation", project(":presentation:ui"))
 
             add("implementation", libs.library("androidx-lifecycle-runtime-compose"))
             add("implementation", libs.library("androidx-lifecycle-viewmodel-compose"))

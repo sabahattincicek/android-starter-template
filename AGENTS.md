@@ -138,7 +138,8 @@ class ProfileViewModel @Inject constructor(
   `src/test` folder of the same module.
 - Available in every module: JUnit 4, MockK, kotlinx-coroutines-test, and Turbine (for testing
   flows). `:core:testing` adds `MainDispatcherRule` (for ViewModels) and `TestDispatcherProvider`;
-  feature modules get it automatically, other modules add `testImplementation(projects.core.testing)`.
+  feature modules get it automatically, `:domain` and `:data` already have it, other modules add
+  `testImplementation(projects.core.testing)`.
 - Inject `DispatcherProvider` instead of using `Dispatchers` directly, so tests can supply test
   dispatchers.
 - Run the tests before calling a task done. Never leave failing tests behind, and never delete or
@@ -175,36 +176,57 @@ the project without reading all the code.
 
 ## 8. Architecture
 
-This project follows **Clean Architecture** with **MVVM** and unidirectional data flow, split into
-Gradle modules. Respect the module structure:
+This project follows **Clean Architecture** with **MVVM** and unidirectional data flow. Each layer
+is a Gradle module, and the folder tree shows the layers. Respect the structure:
 
-| Module | Contains |
-|---|---|
-| `:app` | `App` (Hilt root), `MainActivity`, `navigation/AppNavDisplay` (the Navigation 3 graph) |
-| `:feature:<name>` | One screen or flow: `<Name>Screen` (stateless), `<Name>Route` (stateful), `<Name>ViewModel`, `<Name>UiState` and `<Name>Event`, `navigation/` (its `NavKey` and `xxxEntry()`) |
-| `:core:common` | `Resource`, `DispatcherProvider` and its Hilt module, small Kotlin helpers |
-| `:core:model` | Domain models (plain Kotlin) |
-| `:core:domain` | `repository/` (repository interfaces), `usecase/` (business logic) |
-| `:core:data` | `repository/` (repository implementations), `di/RepositoryModule` |
-| `:core:ui` | `theme/` (colors, typography, `AppTheme`), `component/` (shared composables), `text/UiText` |
-| `:core:network` | Retrofit and OkHttp setup, `api/` (API interfaces), `model/` (DTOs) — optional |
-| `:core:database` | Room `AppDatabase`, `entity/`, `dao/` — optional |
-| `:core:datastore` | DataStore Preferences and its data sources — optional |
-| `:core:testing` | Shared unit test helpers |
-| `build-logic/` | Convention plugins that configure the modules (see `build-logic/README.md`) |
+```text
+app/                          :app — application shell
+  navigation/                 AppNavDisplay (the Navigation 3 graph)
+  di/                         app-wide Hilt modules
+core/                         shared building blocks, no business logic
+  common/                     :core:common
+    result/                   Resource
+    dispatcher/               DispatcherProvider
+    util/                     extensions and small helpers
+    di/                       DispatcherModule
+  testing/                    :core:testing — unit test helpers
+domain/                       :domain — business rules, pure Kotlin
+  model/                      business models
+  repository/                 repository interfaces
+  usecase/                    use cases
+data/                         :data — implements the domain
+  local/database/             Room: AppDatabase, entity/, dao/        (optional)
+  local/datastore/            DataStore data sources                  (optional)
+  remote/api/                 Retrofit API interfaces                 (optional)
+  remote/dto/                 network models (DTOs)                   (optional)
+  repository/                 repository implementations
+  di/                         RepositoryModule, NetworkModule, DatabaseModule, DataStoreModule
+presentation/                 UI layer
+  ui/                         :presentation:ui — shared UI
+    theme/                    colors, typography, AppTheme
+    components/               shared composables (ErrorView, LoadingView)
+    text/                     UiText
+    base/                     base classes for ViewModels or screens, if wanted
+  features/<name>/            :presentation:features:<name> — one module per screen or flow
+build-logic/                  convention plugins (see build-logic/README.md)
+```
+
+A feature module contains `<Name>Screen` (stateless), `<Name>Route` (stateful, gets the ViewModel),
+`<Name>ViewModel`, `<Name>UiState` and `<Name>Event`, and `navigation/` with its `NavKey` and
+`xxxEntry()` function.
 
 Rules:
 
-- **Dependency direction:** `:app` → `:feature:*` → `:core:domain` ← `:core:data` →
-  `:core:network` / `:core:database` / `:core:datastore`. Feature modules never depend on
-  `:core:data` or on each other; they reach data only through use cases. `:core:domain` depends
-  only on `:core:model` and `:core:common`.
-- **Domain stays pure Kotlin:** no Android framework, Retrofit, or Room types in `:core:domain` or
-  `:core:model` (Timber logging is the only exception).
-- **Repositories:** interface in `:core:domain` `repository/`, implementation in `:core:data`
-  `repository/`, bound in `RepositoryModule`.
-- **Models:** DTOs stay in `:core:network` and entities in `:core:database`; `:core:data` maps them
-  to domain models. They never reach the UI.
+- **Dependency direction:** `:app` → `:presentation:features:*` → `:domain` ← `:data`. Feature
+  modules depend on `:domain`, `:presentation:ui`, and `:core:common`; never on `:data` or on each
+  other, so they reach data only through use cases. `:domain` depends only on `:core:common`.
+  Only `:app` depends on `:data`, to put its Hilt modules into the graph.
+- **Domain stays pure Kotlin:** no Android framework, Retrofit, or Room types in `:domain` (Timber
+  logging is the only exception).
+- **Repositories:** interface in `domain/repository/`, implementation in `data/repository/`, bound
+  in `data/di/RepositoryModule`.
+- **Models:** DTOs stay in `data/remote/dto/` and entities in `data/local/database/entity/`;
+  repositories map them to the domain models in `domain/model/`. They never reach the UI.
 - **Use cases:** one use case does one thing and exposes it through `operator fun invoke`.
 - **ViewModels:** expose a single immutable UI state as `StateFlow`, receive user actions as
   events through one `onEvent` function, and call use cases, not repositories.
@@ -217,7 +239,7 @@ Rules:
 - **Results and text:** wrap operation results in `Resource`; pass user-facing text as `UiText`
   instead of holding a `Context`.
 - **No hardcoded user-facing text:** every string the user sees lives in the `strings.xml` of the
-  module that uses it, prefixed with the module name (`feature_home_title`, `core_ui_retry`), and is
+  module that uses it, prefixed with the module name (`profile_title`, `ui_retry`), and is
   referenced through `stringResource` or `UiText.StringResource`.
 - **Dependency injection:** everything is provided through Hilt. Do not create dependencies by hand
   inside classes.
@@ -227,11 +249,25 @@ Rules:
 
 ### Adding a feature module
 
-1. Copy `feature/home` to `feature/<name>` and rename the package and classes.
-2. Set the `namespace` in its `build.gradle.kts`.
-3. Add `include(":feature:<name>")` to `settings.gradle.kts`.
-4. Add `implementation(projects.feature.<name>)` to `app/build.gradle.kts` and call its
-   `xxxEntry()` in `AppNavDisplay`.
+1. Create `presentation/features/<name>/build.gradle.kts`:
+
+   ```kotlin
+   // <What the feature does, in one line.>
+   plugins {
+       alias(libs.plugins.starter.android.feature)
+   }
+
+   android {
+       namespace = "<base package>.presentation.features.<name>"
+   }
+   ```
+
+2. Put the code in `src/main/kotlin/<base package path>/presentation/features/<name>/`, its strings
+   in `src/main/res/values/strings.xml`, and its tests in `src/test/kotlin/...`.
+3. Add `include(":presentation:features:<name>")` to `settings.gradle.kts`.
+4. Add `implementation(projects.presentation.features.<name>)` to `app/build.gradle.kts` and call
+   its `xxxEntry()` in `AppNavDisplay`. For the first feature, start the back stack with its key
+   and delete `StartKey` and `app/.../navigation/StartPlaceholder.kt`.
 
 ---
 

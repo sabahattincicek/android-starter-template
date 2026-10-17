@@ -101,6 +101,17 @@ abstract class RenameProjectTask : DefaultTask() {
         // Every string resource that shows the template's app name (app_name, the home title, ...).
         replaceInFiles(root, ">$OLD_APP_NAME</string>", ">${escapeAndroidString(appName)}</string>")
         logger.lifecycle("Project name set to $projectName, app name set to $appName")
+
+        // Incremental build outputs (Hilt, KSP) still reference the old package and break the next
+        // build, so the build folders of the modules are removed. build-logic keeps its own because
+        // this task is running from it.
+        walk(root)
+            .filter { it.isFile && it.name == "build.gradle.kts" }
+            .map { File(it.parentFile, "build") }
+            .toList()
+            .forEach { it.deleteRecursively() }
+        File(root, ".kotlin").deleteRecursively()
+        logger.lifecycle("Deleted the build folders of all modules")
         logger.lifecycle("Done. Sync Gradle, rebuild the project, and continue with SETUP.md.")
     }
 

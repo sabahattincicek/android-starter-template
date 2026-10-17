@@ -1,9 +1,0 @@
-<resources>
-    <string name="feature_home_title">Android Starter</string>
-    <string name="feature_home_tap">Tap</string>
-    <string name="feature_home_reset">Reset</string>
-    <plurals name="feature_home_tap_count">
-        <item quantity="one">Tapped %d time</item>
-        <item quantity="other">Tapped %d times</item>
-    </plurals>
-</resources>
