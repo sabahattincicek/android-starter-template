@@ -29,16 +29,21 @@ rootProject.name = "AndroidStarter"
 // Lets modules depend on each other as projects.core.common instead of project(":core:common").
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
+// The folder tree follows the clean architecture layers; see the Architecture section of AGENTS.md.
+
+// Application shell: App, MainActivity, navigation graph
 include(":app")
 
+// Shared building blocks with no business logic
 include(":core:common")
-include(":core:model")
-include(":core:domain")
-include(":core:data")
-include(":core:ui")
-include(":core:network")
-include(":core:database")
-include(":core:datastore")
 include(":core:testing")
 
-include(":feature:home")
+// Domain layer: models, repository interfaces, use cases (pure Kotlin)
+include(":domain")
+
+// Data layer: repository implementations, local (Room, DataStore) and remote (Retrofit) sources
+include(":data")
+
+// Presentation layer: shared UI, and one module per feature under presentation/features/
+include(":presentation:ui")
+// include(":presentation:features:<name>")

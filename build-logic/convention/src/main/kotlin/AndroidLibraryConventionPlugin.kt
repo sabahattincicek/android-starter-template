@@ -10,8 +10,8 @@ import starter.libs
 import starter.library
 
 /**
- * Configures an Android library module (every `:core:*` and `:feature:*` module): SDK levels, Java
- * version, Timber, and the unit test libraries.
+ * Configures an Android library module (every module except `:app`): SDK levels, Java version,
+ * Timber, and the unit test libraries.
  */
 class AndroidLibraryConventionPlugin : Plugin<Project> {
 
