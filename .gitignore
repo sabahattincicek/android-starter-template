@@ -1,0 +1,17 @@
+# Gradle and build output
+.gradle/
+build/
+.kotlin/
+
+# Local configuration, never commit
+local.properties
+
+# IDE
+.idea/
+*.iml
+
+# OS and native
+.DS_Store
+captures/
+.externalNativeBuild/
+.cxx/
