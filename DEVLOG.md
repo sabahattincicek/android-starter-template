@@ -20,26 +20,26 @@ Starting point of the project. What the template provides:
 - **Convention plugins** in `build-logic/`: `starter.android.application`,
   `starter.android.library`, `starter.android.compose`, `starter.hilt`, `starter.android.feature`,
   and `starter.rename` (the one-time `renameProject` task). SDK levels are read from the catalog.
-- **Modules:** `:app`, `:feature:home`, and `:core:{common, model, domain, data, ui, network,
-  database, datastore, testing}`. Dependency direction and rules are in `AGENTS.md`.
+- **Layout:** Clean Architecture, one Gradle module per layer, so the folder tree shows the
+  architecture: `:app`, `:core:common`, `:core:testing`, `:domain`, `:data`, `:presentation:ui`, and
+  feature modules under `presentation/features/` (none yet). Folder tree and rules are in the
+  Architecture section of `AGENTS.md`. Intended but empty folders contain a `.gitkeep`.
 - **App:** `App` (`@HiltAndroidApp`, plants the Timber debug tree in debug builds), `MainActivity`
   (`@AndroidEntryPoint`, edge-to-edge), `AppNavDisplay` (Navigation 3 `NavDisplay` with saveable
-  state and per-entry ViewModel store decorators). Release builds use R8 (minify + shrink resources).
-- **Example feature `:feature:home`:** tap counter showing the feature layout: `HomeKey`
-  (`@Serializable NavKey`), `homeEntry()`, `HomeRoute` (stateful), `HomeScreen` (stateless, with
-  preview), `HomeViewModel` (`StateFlow<HomeUiState>`, `onEvent(HomeEvent)`), and
-  `HomeViewModelTest`.
-- **Core utilities:** `Resource` (Success / Error / Loading) with `Flow.asResource()`,
-  `DispatcherProvider` provided by `DispatcherModule`, `UiText`, `AppTheme`, `ErrorView`,
-  `LoadingView`.
-- **Optional modules, ready to use:** `:core:network` (`NetworkModule`: Json, OkHttp with debug-only
-  body logging, Retrofit with `BuildConfig.BASE_URL` = `https://example.com/`), `:core:database`
-  (`AppDatabase` with the placeholder `ExampleEntity`/`ExampleDao`, schemas exported to
-  `core/database/schemas`), `:core:datastore` (Preferences `DataStore` singleton).
-- **Empty, ready to fill:** `:core:model`, `:core:domain` (`repository/`, `usecase/`),
-  `:core:data` (`repository/`, empty `RepositoryModule`).
-- **Tests:** JUnit 4, MockK, Turbine, and kotlinx-coroutines-test in every module; `:core:testing`
-  provides `MainDispatcherRule` and `TestDispatcherProvider`. `ResourceTest` and
-  `HomeViewModelTest` included.
+  state and per-entry ViewModel store decorators) starting at `StartKey`, a placeholder screen
+  (`StartPlaceholder.kt`) that shows the app name until the first feature exists. Release builds use
+  R8 (minify + shrink resources).
+- **Core:** `Resource` (Success / Error / Loading) with `Flow.asResource()`, `DispatcherProvider`
+  provided by `DispatcherModule`; `:core:testing` with `MainDispatcherRule` and
+  `TestDispatcherProvider`.
+- **Domain:** empty `model/`, `repository/`, `usecase/`.
+- **Data:** empty `repository/`, `remote/api/`, `remote/dto/`, `local/datastore/`, and an empty
+  `RepositoryModule`. Optional parts, ready to use: Network (`NetworkModule`: Json, OkHttp with
+  debug-only body logging, Retrofit with `BuildConfig.BASE_URL` = `https://example.com/`), Room
+  (`local/database/AppDatabase` with the placeholder `ExampleEntity`/`ExampleDao`, schemas
+  exported to `data/schemas`), DataStore (Preferences `DataStore` singleton).
+- **Presentation UI:** `AppTheme`, `ErrorView`, `LoadingView`, `UiText`, empty `base/`.
+- **Tests:** JUnit 4, MockK, Turbine, and kotlinx-coroutines-test in every module; `ResourceTest`
+  included.
 - **CI:** `.github/workflows/ci.yml` runs `assembleDebug`, `testDebugUnitTest`, and `lint` on every
   push and pull request.

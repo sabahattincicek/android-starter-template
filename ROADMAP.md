@@ -14,8 +14,9 @@ belong to, or add a new phase.
 
 - [ ] Run `renameProject` with the new package and project name
 - [ ] Verify the rename and search for leftover `androidstarter` references
-- [ ] Remove the optional modules the project does not need (`:core:network`, `:core:database`, `:core:datastore`)
-- [ ] Replace or delete the example code (`:feature:home`, `ExampleEntity`, `ExampleDao`)
+- [ ] Remove the optional parts of `:data` the project does not need (Network, Room, DataStore)
+- [ ] Add the first feature module and remove the placeholder start screen
+- [ ] Replace `ExampleEntity` and `ExampleDao` with the first real table (if Room is used)
 - [ ] Review `AGENTS.md` and adjust the rules to the project
 - [ ] Answer the AI's first-session questions (AI tool, who makes git commits and pushes)
 - [ ] Build, test, lint, and run the app
@@ -27,7 +28,7 @@ belong to, or add a new phase.
 
 - [ ] Define the app's screens and navigation graph
 - [ ] Define the domain models, repository interfaces, and use cases
-- [ ] Set the real `BASE_URL` in `core/network/build.gradle.kts` (if networking is used)
+- [ ] Set the real `BASE_URL` in `data/build.gradle.kts` (if networking is used)
 
 ## Phase 2 — Features
 
