@@ -26,7 +26,8 @@ The task:
 
 * replaces the package in every Kotlin, Gradle, XML, and TOML file: `namespace`, `applicationId`,
   `package` and `import` lines in all modules;
-* moves the source folders of every module to the new package path;
+* moves the source folders of every module to the new package path, and renames the Room schema
+  folder in `core/database/schemas`;
 * sets `rootProject.name` in `settings.gradle.kts`;
 * replaces the app name in every string resource that shows it (`app_name`, the home screen title).
 

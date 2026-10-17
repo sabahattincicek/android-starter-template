@@ -86,6 +86,17 @@ abstract class RenameProjectTask : DefaultTask() {
         sourceDirs.forEach { moveSourceDir(it, pkg) }
         logger.lifecycle("Moved ${sourceDirs.size} source folders to ${pkg.replace('.', '/')}")
 
+        // Room names its exported schema folders after the database class, e.g.
+        // core/database/schemas/<package>.AppDatabase.
+        walk(root)
+            .filter { it.isDirectory && it.name.startsWith("$OLD_PACKAGE.") }
+            .toList()
+            .forEach { dir ->
+                val target = File(dir.parentFile, pkg + dir.name.removePrefix(OLD_PACKAGE))
+                if (!dir.renameTo(target)) throw GradleException("Could not rename $dir")
+                logger.lifecycle("Renamed ${dir.name} to ${target.name}")
+            }
+
         replaceInFile(File(root, "settings.gradle.kts"), "rootProject.name = \"$OLD_PROJECT_NAME\"", "rootProject.name = \"$projectName\"")
         // Every string resource that shows the template's app name (app_name, the home title, ...).
         replaceInFiles(root, ">$OLD_APP_NAME</string>", ">${escapeAndroidString(appName)}</string>")
