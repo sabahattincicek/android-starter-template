@@ -21,11 +21,16 @@ belong to, or add a new phase.
 - [ ] Answer the AI's first-session questions (AI tool, who makes git commits and pushes)
 - [ ] Build, test, lint, and run the app
 - [ ] Delete `SETUP.md`
+- [ ] Project discovery (`docsagent/PROJECT_DISCOVERY.md`): write and approve
+      `docsagent/APP_PLAN.md`
+- [ ] Project discovery: write and approve `docsagent/DESIGN.md` and `docsagent/design.html`
+- [ ] Replace the phases below with the plan from `docsagent/APP_PLAN.md`
 
 ## Phase 1 — Foundation
 
 <!-- Replace the tasks below with the real plan for this project. -->
 
+- [ ] Apply `docsagent/DESIGN.md` to `presentation/ui/theme/` (colors, typography, shapes, spacing)
 - [ ] Define the app's screens and navigation graph
 - [ ] Define the domain models, repository interfaces, and use cases
 - [ ] Set the real `BASE_URL` in `data/build.gradle.kts` (if networking is used)

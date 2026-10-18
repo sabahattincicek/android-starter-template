@@ -1,5 +1,5 @@
 // OPTIONAL (DataStore) — delete this file if the project does not store key-value settings,
-// together with the DataStore line in data/build.gradle.kts (see "Removing an optional part" in SETUP.md).
+// together with the DataStore line in data/build.gradle.kts (see "Removing an optional part" in docsagent/SETUP.md).
 package com.template.androidstarter.data.di
 
 import android.content.Context

@@ -5,11 +5,15 @@ DataStore, Retrofit, and Timber, organized with Clean Architecture and MVVM.
 
 ## First-Time Setup
 
-If you are using this template for the first time, **follow the instructions in [`SETUP.md`](SETUP.md) before starting development**.
+If you are using this template for the first time, **follow the instructions in
+[`docsagent/SETUP.md`](docsagent/SETUP.md) before starting development**.
 
 The setup guide covers renaming the package and project with one Gradle task, removing the optional
-parts you do not need, replacing the placeholders, and the AI assistant files (`AGENTS.md`,
-`DEVLOG.md`, `ROADMAP.md`).
+parts you do not need, replacing the placeholders, and the AI assistant files: `AGENTS.md` in the
+root, and the development log, roadmap, and setup guide in `docsagent/`. After the setup, the AI
+interviews you about the app and its design
+([`docsagent/PROJECT_DISCOVERY.md`](docsagent/PROJECT_DISCOVERY.md)) and writes the app plan and
+the design criteria from your answers into `docsagent/`.
 
 > **Do not skip the setup steps.**
 
@@ -30,6 +34,7 @@ presentation/
   ui/                      theme, shared composables, UiText
   features/<name>/         one module per screen or flow
 build-logic/               convention plugins
+docsagent/                 AI working documents: dev log, roadmap, setup, app plan, design
 ```
 
 ```text
