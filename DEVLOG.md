@@ -43,3 +43,6 @@ Starting point of the project. What the template provides:
   included.
 - **CI:** `.github/workflows/ci.yml` runs `assembleDebug`, `testDebugUnitTest`, and `lint` on every
   push and pull request.
+- **Project discovery:** `docs/PROJECT_DISCOVERY.md` holds the interview the AI runs after setup.
+  From the answers it writes `docs/APP_PLAN.md`, `docs/DESIGN.md`, and `docs/design.html`. These
+  files do not exist yet.

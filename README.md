@@ -9,7 +9,9 @@ If you are using this template for the first time, **follow the instructions in 
 
 The setup guide covers renaming the package and project with one Gradle task, removing the optional
 parts you do not need, replacing the placeholders, and the AI assistant files (`AGENTS.md`,
-`DEVLOG.md`, `ROADMAP.md`).
+`DEVLOG.md`, `ROADMAP.md`). After the setup, the AI interviews you about the app and its design
+([`docs/PROJECT_DISCOVERY.md`](docs/PROJECT_DISCOVERY.md)) and writes the app plan and the design
+criteria from your answers.
 
 > **Do not skip the setup steps.**
 

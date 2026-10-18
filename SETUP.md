@@ -98,6 +98,7 @@ your project:
 | `AGENTS.md` | Rules the AI follows: scope, comments, logging, unit tests, architecture, and git workflow. |
 | `DEVLOG.md` | Timestamped log of what has been done, newest entry first, so the AI does not have to re-read the whole codebase every session. |
 | `ROADMAP.md` | Planned work, split into phases and checkbox tasks (`[ ]` open, `[x]` done). |
+| `docs/PROJECT_DISCOVERY.md` | The questions the AI asks to write the app plan and the design criteria. |
 
 Things to do:
 
@@ -114,6 +115,20 @@ your answers in the file:
   their own.
 * **Who makes git commits and pushes:** the AI or you.
 
+When the setup is finished, the AI runs the **project discovery** interview from
+`docs/PROJECT_DISCOVERY.md`. It asks you, a few questions at a time, about the app (purpose,
+users, scope, platforms, backend and hosting, integrations, monetization, release plan) and then
+about its design (personality, colors, typography, shapes, components, layout, motion,
+accessibility, tone). From your answers it writes:
+
+* `docs/APP_PLAN.md`: the app plan, from the first release to the long-term vision.
+* `docs/DESIGN.md`: the design system the Compose theme is built from.
+* `docs/design.html`: a single page showing the palette, components, and screen mockups. Open it in
+  a browser.
+
+You can answer any question with "you decide" or "not sure yet". The AI then makes a choice and
+explains it, or records the question as open. It also rebuilds `ROADMAP.md` from the plan.
+
 ---
 
 ## 6. Remove the Setup Files
@@ -121,6 +136,8 @@ your answers in the file:
 After completing the setup successfully:
 
 * Delete this file, `SETUP.md`, and the "First-Time Setup" section of `README.md`.
+* Keep `docs/PROJECT_DISCOVERY.md`: the AI uses it again when you want to revisit the plan or the
+  design.
 * Optionally remove the rename task: delete `alias(libs.plugins.starter.rename)` from the root
   `build.gradle.kts`, the `starter-rename` line in `gradle/libs.versions.toml`, the `rename` entry in
   `build-logic/convention/build.gradle.kts`, and
