@@ -1,5 +1,5 @@
 // OPTIONAL (Network) — delete this file if the project does not call an HTTP API, together with
-// the Network lines in data/build.gradle.kts (see "Removing an optional part" in SETUP.md).
+// the Network lines in data/build.gradle.kts (see "Removing an optional part" in docsagent/SETUP.md).
 package com.template.androidstarter.data.di
 
 import com.template.androidstarter.data.BuildConfig

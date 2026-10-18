@@ -8,7 +8,7 @@
 //   di/               Hilt modules: RepositoryModule, NetworkModule, DatabaseModule, DataStoreModule
 //
 // Network, Room, and DataStore are optional: the lines that belong to each are marked below. See
-// "Removing an optional part" in SETUP.md.
+// "Removing an optional part" in docsagent/SETUP.md.
 plugins {
     alias(libs.plugins.starter.android.library)
     alias(libs.plugins.starter.hilt)

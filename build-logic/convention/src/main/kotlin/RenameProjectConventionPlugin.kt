@@ -112,7 +112,7 @@ abstract class RenameProjectTask : DefaultTask() {
             .forEach { it.deleteRecursively() }
         File(root, ".kotlin").deleteRecursively()
         logger.lifecycle("Deleted the build folders of all modules")
-        logger.lifecycle("Done. Sync Gradle, rebuild the project, and continue with SETUP.md.")
+        logger.lifecycle("Done. Sync Gradle, rebuild the project, and continue with docsagent/SETUP.md.")
     }
 
     /** Returns every `src/<sourceSet>/{kotlin,java}/<old package path>` folder outside the skipped folders. */
