@@ -1,5 +1,5 @@
 // OPTIONAL (Room) — delete this file if the project does not use a local database, together with
-// local/database/ and the Room lines in data/build.gradle.kts (see "Removing an optional part" in SETUP.md).
+// local/database/ and the Room lines in data/build.gradle.kts (see "Removing an optional part" in docsagent/SETUP.md).
 package com.template.androidstarter.data.di
 
 import android.content.Context

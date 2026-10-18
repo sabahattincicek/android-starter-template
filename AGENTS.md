@@ -14,7 +14,11 @@ Filled in once, on the first session (see "First session" below).
 - **AI tool:** `NOT SET` <!-- e.g. "Claude Code", "Codex", "Gemini CLI", "Cursor" -->
 - **Git commits and pushes are made by:** `NOT SET` <!-- "AI" or "Developer" -->
 - **Language for code, comments, logs, and commit messages:** `English`
-- **Project discovery (app plan and design):** `NOT DONE` <!-- "DONE" once docs/APP_PLAN.md, docs/DESIGN.md, and docs/design.html are approved -->
+- **Project discovery (app plan and design):** `NOT DONE` <!-- "DONE" once the plan and design files in docsagent/ are approved -->
+
+The AI working documents (development log, roadmap, setup guide, project discovery, app plan,
+design) live together in [`docsagent/`](docsagent/). Only this file and `README.md` stay in the
+root, because tools load this file from there.
 
 ---
 
@@ -22,13 +26,14 @@ Filled in once, on the first session (see "First session" below).
 
 At the start of every session, before writing any code:
 
-1. Read [`DEVLOG.md`](DEVLOG.md) to learn what has been done so far. Do not re-read the whole
-   codebase to rebuild that context; open only the files the current task needs.
-2. Read [`ROADMAP.md`](ROADMAP.md) to see what is planned and what is still open.
+1. Read [`docsagent/DEVLOG.md`](docsagent/DEVLOG.md) to learn what has been done so far. Do not
+   re-read the whole codebase to rebuild that context; open only the files the current task needs.
+2. Read [`docsagent/ROADMAP.md`](docsagent/ROADMAP.md) to see what is planned and what is still
+   open.
 3. Check the Project Settings above.
-4. If [`docs/APP_PLAN.md`](docs/APP_PLAN.md) and [`docs/DESIGN.md`](docs/DESIGN.md) exist, read the
-   parts that matter for the current task: the plan for scope and features, the design for any UI
-   work.
+4. If [`docsagent/APP_PLAN.md`](docsagent/APP_PLAN.md) and
+   [`docsagent/DESIGN.md`](docsagent/DESIGN.md) exist, read the parts that matter for the current
+   task: the plan for scope and features, the design for any UI work.
 
 ### First session
 
@@ -51,8 +56,9 @@ session without the developer pointing to them:
 | Codex, Cursor, and other tools that read `AGENTS.md` | keep `AGENTS.md` |
 | Any other tool | the instruction file name that tool documents |
 
-After renaming, update every reference to `AGENTS.md` in `README.md`, `SETUP.md`, `ROADMAP.md`,
-and `docs/PROJECT_DISCOVERY.md`.
+Keep the renamed file in the root (or in `.github/` for Copilot); tools do not look for it in
+`docsagent/`. After renaming, update every reference to `AGENTS.md` in `README.md` and in the files
+in `docsagent/`.
 
 **2. Who makes git commits and pushes?**
 
@@ -62,14 +68,15 @@ Record `AI` or `Developer`.
 
 **3. Project discovery: the app plan and the design criteria**
 
-Once the setup in [`SETUP.md`](SETUP.md) is finished, and while "Project discovery" is `NOT DONE`,
-run the interview in [`docs/PROJECT_DISCOVERY.md`](docs/PROJECT_DISCOVERY.md):
+Once the setup in [`docsagent/SETUP.md`](docsagent/SETUP.md) is finished, and while "Project
+discovery" is `NOT DONE`, run the interview in
+[`docsagent/PROJECT_DISCOVERY.md`](docsagent/PROJECT_DISCOVERY.md):
 
 > The setup is done. Before we build anything, I would like to plan the app with you: first what it
 > does and how it will grow, then how it should look. Shall we start?
 
-It produces `docs/APP_PLAN.md`, `docs/DESIGN.md`, and `docs/design.html`. Follow the rules in that
-file, and set "Project discovery" to `DONE` when the developer has approved all three. If the
+It produces `docsagent/APP_PLAN.md`, `docsagent/DESIGN.md`, and `docsagent/design.html`. Follow the
+rules in that file, and set "Project discovery" to `DONE` when the developer has approved all three. If the
 developer wants to postpone it, offer it again at the next session start, and before building the
 first feature.
 
@@ -83,10 +90,10 @@ first feature.
   changing the architecture, or anything hard to undo.
 - **Ask before adding a library.** Do not add, replace, or upgrade a dependency without the
   developer's approval. Say what it is for and what the alternatives are.
-- **Follow the plan and the design.** Build what `docs/APP_PLAN.md` describes and style the UI with
-  the tokens and components in `docs/DESIGN.md`; no colors, sizes, or fonts outside the theme. When
-  a task changes the plan or the design, update those files (and `docs/design.html`) and their
-  decision log in the same piece of work.
+- **Follow the plan and the design.** Build what `docsagent/APP_PLAN.md` describes and style the UI
+  with the tokens and components in `docsagent/DESIGN.md`; no colors, sizes, or fonts outside the
+  theme. When a task changes the plan or the design, update those files (and
+  `docsagent/design.html`) and their decision log in the same piece of work.
 - **Language.** Write code identifiers, comments, log messages, and commit messages in the language
   set in Project Settings. User-facing text follows the app's own localization.
 
@@ -98,8 +105,8 @@ A task is finished only when all of these are true:
 2. Unit tests are updated and pass (`./gradlew testDebugUnitTest`).
 3. Lint reports no new issues (`./gradlew lint`).
 4. New and changed code follows the comment and logging rules below.
-5. `DEVLOG.md` has a new entry for the work.
-6. The matching `ROADMAP.md` tasks are marked `[x]`.
+5. `docsagent/DEVLOG.md` has a new entry for the work.
+6. The matching `docsagent/ROADMAP.md` tasks are marked `[x]`.
 
 The same build, test, and lint commands run in CI on every push and pull request
 (`.github/workflows/ci.yml`). Never report a task as done while any of these is missing; say what
@@ -169,10 +176,10 @@ class ProfileViewModel @Inject constructor(
 
 ---
 
-## 6. Development Log — `DEVLOG.md`
+## 6. Development Log — `docsagent/DEVLOG.md`
 
-[`DEVLOG.md`](DEVLOG.md) is the project's memory. It exists so that a new session can understand
-the project without reading all the code.
+[`docsagent/DEVLOG.md`](docsagent/DEVLOG.md) is the project's memory. It exists so that a new
+session can understand the project without reading all the code.
 
 - After finishing a piece of work, add an entry describing what was done.
 - Every entry is stamped with date and time: `## YYYY-MM-DD HH:mm — Short title`.
@@ -184,9 +191,9 @@ the project without reading all the code.
 
 ---
 
-## 7. Roadmap — `ROADMAP.md`
+## 7. Roadmap — `docsagent/ROADMAP.md`
 
-[`ROADMAP.md`](ROADMAP.md) holds everything still to be done.
+[`docsagent/ROADMAP.md`](docsagent/ROADMAP.md) holds everything still to be done.
 
 - Work is organized in **phases**. Each phase is broken into small tasks.
 - Every task starts with a checkbox: `- [ ]` for open, `- [x]` for done.
@@ -231,6 +238,8 @@ presentation/                 UI layer
     base/                     base classes for ViewModels or screens, if wanted
   features/<name>/            :presentation:features:<name> — one module per screen or flow
 build-logic/                  convention plugins (see build-logic/README.md)
+docsagent/                    AI working documents: DEVLOG, ROADMAP, SETUP, project discovery,
+                              app plan, design
 ```
 
 A feature module contains `<Name>Screen` (stateless), `<Name>Route` (stateful, gets the ViewModel),

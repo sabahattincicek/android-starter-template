@@ -1,14 +1,14 @@
 # Project Discovery
 
-The interview the AI runs with the developer once the setup in [`SETUP.md`](../SETUP.md) is
+The interview the AI runs with the developer once the setup in [`SETUP.md`](SETUP.md) is
 finished, before the first feature is built. Its answers become three documents that guide the
 rest of the project:
 
 | Output | What it is |
 |---|---|
-| `docs/APP_PLAN.md` | What the app does, for whom, its scope, platforms, backend, and how it grows over time. |
-| `docs/DESIGN.md` | The design system: colors, typography, shapes, components, layout, motion, tone. |
-| `docs/design.html` | A single-page visual version of `DESIGN.md`: swatches, components, and screen mockups. |
+| `docsagent/APP_PLAN.md` | What the app does, for whom, its scope, platforms, backend, and how it grows over time. |
+| `docsagent/DESIGN.md` | The design system: colors, typography, shapes, components, layout, motion, tone. |
+| `docsagent/design.html` | A single-page visual version of `DESIGN.md`: swatches, components, and screen mockups. |
 
 None of these files exist in the template. The AI writes them from the developer's answers.
 
@@ -21,10 +21,10 @@ or reword questions to fit their way of working.
 
 ### Order
 
-1. **Part A — App Plan** (questions A1–A14). Then write `docs/APP_PLAN.md` and get the developer's
-   OK.
+1. **Part A — App Plan** (questions A1–A14). Then write `docsagent/APP_PLAN.md` and get the
+   developer's OK.
 2. **Part B — Design Criteria** (questions B1–B12). The design follows from the plan, so it comes
-   second. Then write `docs/DESIGN.md` and `docs/design.html` and get the developer's OK.
+   second. Then write `docsagent/DESIGN.md` and `docsagent/design.html` and get the developer's OK.
 3. **Wrap-up** (section 5): update `ROADMAP.md`, `DEVLOG.md`, and the Project Settings in
    `AGENTS.md`.
 
@@ -316,7 +316,7 @@ Write the files from the answers only. Mark every value that came from the AI ra
 developer, so it can be reviewed later. Use real content from the plan (real screen names, feature
 names, example data), never lorem ipsum.
 
-### `docs/APP_PLAN.md`
+### `docsagent/APP_PLAN.md`
 
 Sections, in this order (leave a section out only if it truly does not apply, and say so):
 
@@ -348,7 +348,7 @@ Sections, in this order (leave a section out only if it truly does not apply, an
 20. **Open questions**
 21. **Decision log** — table with date, decision, chosen by (developer / AI), and reason.
 
-### `docs/DESIGN.md`
+### `docsagent/DESIGN.md`
 
 The written design system. Each value maps to a place in the code (`presentation/ui/theme/`), so
 the theme can be built from it directly.
@@ -384,7 +384,7 @@ the theme can be built from it directly.
     `Type.kt`, `Theme.kt`, and new files such as `Shape.kt` or `Spacing.kt` if needed), and the
     font files to add.
 
-### `docs/design.html`
+### `docsagent/design.html`
 
 A single, self-contained HTML page that shows `DESIGN.md` visually. Open it in any browser.
 
