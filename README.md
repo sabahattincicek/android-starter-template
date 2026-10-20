@@ -34,16 +34,17 @@ presentation/
   ui/                      theme, shared composables, UiText
   features/<name>/         one module per screen or flow
 build-logic/               convention plugins
-docsagent/                 AI working documents: dev log, roadmap, setup, app plan, design
+docsagent/                 AI working documents: dev log, roadmap, setup, architecture, app plan, design
 ```
 
 ```text
 presentation/features  ──▶  domain  ◀──  data
 ```
 
-Features call use cases in `domain`; `data` implements the domain's repository interfaces. See the
-Architecture section of [`AGENTS.md`](AGENTS.md) for the full folder tree, the rules between the
-layers, and how to add a feature module.
+Features call use cases in `domain`; `data` implements the domain's repository interfaces. See
+[`docsagent/ARCHITECTURE.md`](docsagent/ARCHITECTURE.md) for the full folder tree and how to add a
+feature module, and the Architecture section of [`AGENTS.md`](AGENTS.md) for the rules between the
+layers.
 
 ## Stack
 
