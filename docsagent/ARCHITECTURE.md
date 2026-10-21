@@ -37,8 +37,8 @@ presentation/                 UI layer
   features/<name>/            :presentation:features:<name> — one module per screen or flow
 build-logic/                  convention plugins (see build-logic/README.md)
 docsagent/                    AI working documents: DEVLOG, ROADMAP (and its archive), SETUP,
-                              first session, architecture, services, project discovery, app plan,
-                              design
+                              first session, architecture, features, services, project discovery,
+                              app plan, design
 scripts/                      check.ps1 and check.sh: build, test, and lint with a short summary
 ```
 
@@ -67,3 +67,4 @@ A feature module contains `<Name>Screen` (stateless), `<Name>Route` (stateful, g
 4. Add `implementation(projects.presentation.features.<name>)` to `app/build.gradle.kts` and call
    its `xxxEntry()` in `AppNavDisplay`. For the first feature, start the back stack with its key
    and delete `StartKey` and `app/.../navigation/StartPlaceholder.kt`.
+5. Add a row for the feature to [`FEATURES.md`](FEATURES.md).
