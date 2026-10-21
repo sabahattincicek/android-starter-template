@@ -35,6 +35,7 @@ presentation/
   features/<name>/         one module per screen or flow
 build-logic/               convention plugins
 docsagent/                 AI working documents: dev log, roadmap, setup, architecture, app plan, design
+scripts/                   build, test, and lint with a short summary (for AI agents)
 ```
 
 ```text
@@ -63,6 +64,7 @@ layers.
 ## Common Commands
 
 ```bash
+scripts/check.sh               # build, test, and lint with a short summary (Windows: scripts\check.ps1)
 ./gradlew assembleDebug        # build the debug APK
 ./gradlew testDebugUnitTest    # run all unit tests
 ./gradlew lint                 # run Android lint on all modules

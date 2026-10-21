@@ -38,6 +38,7 @@ presentation/                 UI layer
 build-logic/                  convention plugins (see build-logic/README.md)
 docsagent/                    AI working documents: DEVLOG, ROADMAP (and its archive), SETUP,
                               first session, architecture, project discovery, app plan, design
+scripts/                      check.ps1 and check.sh: build, test, and lint with a short summary
 ```
 
 A feature module contains `<Name>Screen` (stateless), `<Name>Route` (stateful, gets the ViewModel),
