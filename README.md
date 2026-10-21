@@ -34,16 +34,18 @@ presentation/
   ui/                      theme, shared composables, UiText
   features/<name>/         one module per screen or flow
 build-logic/               convention plugins
-docsagent/                 AI working documents: dev log, roadmap, setup, app plan, design
+docsagent/                 AI working documents: dev log, roadmap, setup, architecture, services, app plan, design
+scripts/                   build, test, and lint with a short summary (for AI agents)
 ```
 
 ```text
 presentation/features  ──▶  domain  ◀──  data
 ```
 
-Features call use cases in `domain`; `data` implements the domain's repository interfaces. See the
-Architecture section of [`AGENTS.md`](AGENTS.md) for the full folder tree, the rules between the
-layers, and how to add a feature module.
+Features call use cases in `domain`; `data` implements the domain's repository interfaces. See
+[`docsagent/ARCHITECTURE.md`](docsagent/ARCHITECTURE.md) for the full folder tree and how to add a
+feature module, and the Architecture section of [`AGENTS.md`](AGENTS.md) for the rules between the
+layers.
 
 ## Stack
 
@@ -62,6 +64,7 @@ layers, and how to add a feature module.
 ## Common Commands
 
 ```bash
+scripts/check.sh               # build, test, and lint with a short summary (Windows: scripts\check.ps1)
 ./gradlew assembleDebug        # build the debug APK
 ./gradlew testDebugUnitTest    # run all unit tests
 ./gradlew lint                 # run Android lint on all modules
