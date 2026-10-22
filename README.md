@@ -35,7 +35,7 @@ presentation/
   features/<name>/         one module per screen or flow
 build-logic/               convention plugins
 docsagent/                 AI working documents: dev log, roadmap, setup, architecture, features, services, app plan, design
-scripts/                   build, test, and lint with a short summary (for AI agents)
+scripts/                   build, test, and lint with a short summary (for AI agents), token usage report
 ```
 
 ```text
@@ -85,6 +85,7 @@ without a code search. These habits on your side save more:
 
 ```bash
 scripts/check.sh               # build, test, and lint with a short summary (Windows: scripts\check.ps1)
+python3 scripts/token_usage.py report  # token usage of past Claude Code sessions (Windows: python)
 ./gradlew assembleDebug        # build the debug APK
 ./gradlew testDebugUnitTest    # run all unit tests
 ./gradlew lint                 # run Android lint on all modules
